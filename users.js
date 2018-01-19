@@ -5,7 +5,7 @@ const users = express.Router();
 
 const usersChat = [];
 
-users.post('/user', (req, res) => {
+users.post('/', (req, res) => {
     let userID = req.body.userID;
     let username = req.body.username;
     let password = req.body.password;
