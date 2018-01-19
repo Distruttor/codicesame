@@ -18,7 +18,7 @@ users.post('/', (req, res) => {
 });
 
 users.get('/:id', (req, res) => {
-    const userID = req.path.id;
+    const userID = req.params.id;
     const i = usersChat.findIndex(u => {return u.userID === userID});
     if(i==-1) {
         res.sendStatus(404);
