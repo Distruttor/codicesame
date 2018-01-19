@@ -17,6 +17,17 @@ users.post('/', (req, res) => {
     res.json(newUser);
 });
 
+users.get('/:id', (req, res) => {
+    const userID = req.body.userID;
+    const i = usersChat.findIndex(u => {return u.userID === userID});
+    if(i==-1) {
+        res.sendStatus(404);
+    } else {
+        res.status = 200;
+        res.json(usersChat[i]);
+    }
+});
+
 
 module.exports = users;
 
