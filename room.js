@@ -27,7 +27,11 @@ room.put('/:id', (req, res) => {
         roomList[i].roomName= roomName;
         res.json(roomList[i]);
     }
-})
+});
+
+room.get('/', (req, res) => {
+    res.json(roomList);
+});
 
 
 module.exports = room;
