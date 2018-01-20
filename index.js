@@ -5,6 +5,7 @@ var mongoose = require('mongoose');
 
 var users = require('./users');
 var room = require('./room');
+var message = require('./message');
 
 //instantiate express
 const app = express();
@@ -21,6 +22,7 @@ var port = process.env.PORT || 9000;
 
 app.use('/user', users);
 app.use('/room', room);
+app.use('/msg', message);
 
 app.listen(port, () => {
     console.log("Server is listening on port " + port);
