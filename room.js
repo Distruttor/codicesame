@@ -14,6 +14,19 @@ room.post('/', (req, res) => {
     roomList.push(newRoom);
 
     res.json(newRoom);
+});
+
+room.put('/:id', (req, res) => {
+    const roomID = req.params.id;
+    let roomName = req.body.roomName;
+
+    const i = roomList.findIndex(r => {return r.roomID === roomID});
+    if(i==-1) {
+        res.sendStatus(404);
+    } else {
+        roomList[i].roomName= roomName;
+        res.json(roomList[i]);
+    }
 })
 
 
