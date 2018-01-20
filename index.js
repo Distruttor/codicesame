@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 
 var users = require('./users');
 var room = require('./room');
-var message = require('./message');
+var message = require('./msg');
 
 //instantiate express
 const app = express();
