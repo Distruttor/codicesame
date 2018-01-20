@@ -62,14 +62,14 @@ paths:
       parameters:
         - name: id
           in: path
-          description: Id of the room to update
+          description: Id of the user to update
           required: true
           type: string
         - name: user
           in: body
           description: user updated
           schema:
-            $ref: '#/definitions/User'
+            $ref: '#/definitions/NewUser'
       responses:
         200:
           description: OK - user updated
@@ -81,7 +81,7 @@ paths:
             $ref: '#/definitions/Error'
   /room:
     post:
-      description: Insert a new user
+      description: Insert a new room
       parameters:
         - name: newRoom
           in: body
@@ -94,15 +94,45 @@ paths:
           description: OK - room inserted
           schema:
             $ref: '#/definitions/Room'
+            
+  /room/{id}:
+    put:
+      description: Update the name of a room
+      parameters:
+        - name: id
+          in: path
+          description: ID of the room
+          required: true
+          type: string
+        - name: room
+          in: body
+          description: room updated
+          required: true
+          schema:
+            $ref: '#/definitions/NewRoom'
+      responses:
+        200:
+          description: OK - room updated
+          schema:
+            $ref: '#/definitions/Room'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
 definitions:
   User:
     required:
       - userID
-      - username
-      - password
+    allOf:
+      - $ref: '#/definitions/NewUser'
     properties:
       userID:
         type: string
+  NewUser:
+    required:
+      - username
+      - password
+    properties:
       username:
         type: string
       password:
@@ -110,12 +140,17 @@ definitions:
   Room:
     required:
       - roomID
-      - roomName
+    allOf:
+      - $ref: '#/definitions/NewRoom'
     properties:
       roomID:
         type: string
+  NewRoom:
+    required:
+      - roomName
+    properties:
       roomName:
-        type: string
+        type: string  
   Error:
     required:
       - code
