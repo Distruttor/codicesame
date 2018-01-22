@@ -149,6 +149,7 @@ paths:
         - name: time
           in: query
           description: date
+          required: true
           type: string
           format: date
       responses:
