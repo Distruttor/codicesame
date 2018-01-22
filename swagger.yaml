@@ -119,6 +119,47 @@ paths:
           description: unexpected error
           schema:
             $ref: '#/definitions/Error'
+  /msg:
+    post:
+      description: Add a new message
+      parameters:
+        - name: message
+          in: body
+          description: The message
+          required: true
+          schema:
+            $ref: '#/definitions/Message'
+      responses: 
+        200:
+          description: OK - Message inserted
+          schema:
+            $ref: '#/definitions/NewMessage'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    get:
+      description: Get all the messages written in a specific room aftar a specific date
+      parameters:
+        - name: roomID
+          in: query
+          description: ID of the room
+          required: true
+          type: string
+        - name: time
+          in: query
+          description: date
+          type: string
+          format: date
+      responses:
+        200:
+          description: OK - messages get
+          schema:
+            $ref: '#/definitions/NewMessage'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'  
 definitions:
   User:
     required:
@@ -151,6 +192,30 @@ definitions:
     properties:
       roomName:
         type: string  
+  NewMessage:
+    required:
+      - time
+    allOf:
+      - $ref: '#/definitions/Message'
+    properties:
+      time:
+        type: string
+        format: date
+  Message:
+    required:
+      - messageID
+      - text
+      - roomID
+      - authorID
+    properties:
+      messageID:
+        type: string
+      text:
+        type: string
+      roomID:
+        type: string
+      authorID:
+        type: string
   Error:
     required:
       - code
